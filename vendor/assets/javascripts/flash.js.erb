@@ -4,22 +4,29 @@ var Flash = new Object();
 Flash.data = {};
 
 Flash.transferFromCookies = function() {
-  var data = JSON.parse(unescape($.cookie("flash") || '{}'));
-  if(!data) data = {};
-  Flash.data = data;
-  $.cookie('flash', null, {path: '/', domain: '<%=CacheableFlash::Config.config[:domain]%>'});
+
+    if ( $.cookie("flash") == undefined ) {
+                        console.log("flash is undefined.. do nothing") ;
+    } else {
+                        console.log("flash is defined.. read it") ;
+                        var data = JSON.parse(decodeURI($.cookie("flash")));
+    }
+
+    if(!data) data = {};
+    Flash.data = data;
+    $.cookie('flash', null, {path: '/'});
 };
 
 Flash.writeDataTo = function(name, element, callback) {
-  element = $(element);
-  var message = "";
-  if (Flash.data[name]) {
-    message = Flash.data[name].toString().replace(/\+/g, ' ');
-    element.text(message);
-    if (callback && typeof(callback) === 'function') {
-      callback(element);
-    } else {
-      element.show();
+    element = $(element);
+    var message = "";
+    if (Flash.data[name]) {
+        message = Flash.data[name].toString().replace(/\+/g, ' ');
+        element.text(message);
+        if (callback && typeof(callback) === 'function') {
+            callback(element);
+        } else {
+            element.show();
+        }
     }
-  }
 };
