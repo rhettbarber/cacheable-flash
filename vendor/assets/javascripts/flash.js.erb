@@ -6,9 +6,9 @@ Flash.data = {};
 Flash.transferFromCookies = function() {
 
     if ( $.cookie("flash") == undefined ) {
-                        console.log("flash is undefined.. do nothing") ;
+                        //console.log("flash is undefined.. do nothing") ;
     } else {
-                        console.log("flash is defined.. read it") ;
+                        //console.log("flash is defined.. read it") ;
                         var data = JSON.parse(decodeURI($.cookie("flash")));
     }
 
